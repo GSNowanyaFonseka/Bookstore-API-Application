@@ -4,10 +4,45 @@
  */
 package com.bookstore.api.application.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
+
 /**
  *
  * @author Hp
  */
-public class CartNotFoundExceptionMapper {
+@Provider
+public class CartNotFoundExceptionMapper implements ExceptionMapper<CartNotFoundException>{
+
+    private static final Logger LOGGER = Logger.getLogger(CartNotFoundExceptionMapper.class.getName());
+    
+    /** 
+     * converts a CartNotFoundException into a HTTP response
+     * @param exception the thrown CartNotFoundException
+     * @return a Response object with HTTP 404 status and JSON error message
+     */
+    
+    @Override
+    public Response toResponse(CartNotFoundException exception) {
+        
+        LOGGER.log(Level.WARNING,"Handling CartNotFoundException: {0}", exception.getMessage());
+        
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Cart Not Found");
+        errorResponse.put("message", exception.getMessage());
+        
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(errorResponse)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
     
 }
+

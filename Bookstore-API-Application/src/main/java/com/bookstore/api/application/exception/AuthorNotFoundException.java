@@ -4,10 +4,23 @@
  */
 package com.bookstore.api.application.exception;
 
+import java.util.logging.Logger;
+
 /**
  *
- * @author Hp
+ * Exception thrown when an author is not found in the system
+ * 
  */
-public class AuthorNotFoundException {
+public class AuthorNotFoundException extends RuntimeException{
     
+    private static final Logger LOGGER = Logger.getLogger(AuthorNotFoundException.class.getName());
+    
+    /**
+     * Constructs a new AuthorNotFoundException with the specified details message
+     * @param message the details message 
+     */
+    public AuthorNotFoundException(String message){
+        super(message);
+        LOGGER.warning("AuthorNotFoundException thrown: {0}" + message);
+    }
 }

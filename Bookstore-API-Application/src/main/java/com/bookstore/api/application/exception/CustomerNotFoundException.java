@@ -4,10 +4,18 @@
  */
 package com.bookstore.api.application.exception;
 
+import java.util.logging.Logger;
+
 /**
  *
- * @author Hp
+ * Custom exception to indicate that a Customer was not found
  */
-public class CustomerNotFoundException {
+public class CustomerNotFoundException extends RuntimeException{
     
+    private static final Logger LOGGER = Logger.getLogger(CustomerNotFoundExceptionMapper.class.getName());
+    
+    public CustomerNotFoundException(String message){
+        super(message);
+        LOGGER.warning("CustomerNotFoundException thrown: " + message);
+    }
 }

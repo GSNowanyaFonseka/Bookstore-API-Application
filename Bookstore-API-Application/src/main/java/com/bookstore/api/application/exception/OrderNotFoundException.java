@@ -4,10 +4,18 @@
  */
 package com.bookstore.api.application.exception;
 
+import java.util.logging.Logger;
+
 /**
- *
- * @author Hp
+ * Custom exception to indicate that a Order was not found
+ * 
  */
-public class OrderNotFoundException {
+public class OrderNotFoundException extends RuntimeException{
+    private static final Logger LOGGER = Logger.getLogger(OrderNotFoundExceptionMapper.class.getName());
     
+    public OrderNotFoundException(String message){
+        super(message);
+        LOGGER.warning("OrderNotFoundException thrown: " + message);
+    }
 }
+
